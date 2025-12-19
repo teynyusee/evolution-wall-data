@@ -3,6 +3,6 @@
   "species": [
     { "id": "1", "name": "Australopithecus afarensis", "start_mya": 3.9, "end_mya": 3.0 },
     { "id": "2", "name": "Homo habilis", "start_mya": 2.4, "end_mya": 1.4 },
-    { "id": "3", "name": "Homo habilis", "start_mya": 2.4, "end_mya": 1.4 }
+    { "id": "3", "name": "Homo teresus", "start_mya": 2.4, "end_mya": 1.4 }
   ]
 }
