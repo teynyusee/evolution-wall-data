@@ -1,8 +1,68 @@
 {
-  "version": 1,
+  "version": 3,
   "species": [
-    { "id": 0, "name": "Australopithecus afarensis", "start_mya": 3.9, "end_mya": 3.0 },
-    { "id": 1, "name": "Homo habilis", "start_mya": 2.4, "end_mya": 1.4 },
-    { "id": 2, "name": "Homo teresus", "start_mya": 2.4, "end_mya": 1.4 }
+    {
+      "id": 0,
+      "name": "Australopithecus afarensis",
+      "start_mya": 3.9,
+      "end_mya": 3.0,
+      "period": "3.9 – 3.0 miljoen jaar geleden",
+      "description": "Australopithecus afarensis was een vroege mensachtige die al rechtop kon lopen, maar ook nog veel in bomen klom. Hij was klein en had een eenvoudig brein.",
+      "fun_fact": "Het bekende skelet 'Lucy' hoort bij deze soort."
+    },
+    {
+      "id": 1,
+      "name": "Australopithecus africanus",
+      "start_mya": 3.3,
+      "end_mya": 2.1,
+      "period": "3.3 – 2.1 miljoen jaar geleden",
+      "description": "Deze soort leek sterk op Australopithecus afarensis, maar had een iets groter brein en sterkere tanden. Hij leefde vooral in Afrika.",
+      "fun_fact": "Zijn tanden tonen dat hij zowel planten als zacht voedsel at."
+    },
+    {
+      "id": 2,
+      "name": "Homo habilis",
+      "start_mya": 2.4,
+      "end_mya": 1.4,
+      "period": "2.4 – 1.4 miljoen jaar geleden",
+      "description": "Homo habilis betekent 'de handige mens'. Hij was waarschijnlijk de eerste die stenen werktuigen maakte.",
+      "fun_fact": "Deze soort had al duidelijk grotere hersenen dan eerdere mensachtigen."
+    },
+    {
+      "id": 3,
+      "name": "Homo erectus",
+      "start_mya": 1.9,
+      "end_mya": 0.1,
+      "period": "1.9 miljoen – 100.000 jaar geleden",
+      "description": "Homo erectus liep volledig rechtop en gebruikte vuur. Hij was de eerste mensachtige die Afrika verliet.",
+      "fun_fact": "Dankzij vuur kon hij eten koken en warm blijven."
+    },
+    {
+      "id": 4,
+      "name": "Homo heidelbergensis",
+      "start_mya": 0.7,
+      "end_mya": 0.2,
+      "period": "700.000 – 200.000 jaar geleden",
+      "description": "Deze soort was een sterke jager en bouwde eenvoudige schuilplaatsen. Hij wordt gezien als een voorouder van de neanderthaler en de moderne mens.",
+      "fun_fact": "Hij gebruikte al speren om te jagen."
+    },
+    {
+      "id": 5,
+      "name": "Homo neanderthalensis",
+      "start_mya": 0.4,
+      "end_mya": 0.04,
+      "period": "400.000 – 40.000 jaar geleden",
+      "description": "Neanderthalers waren sterk, slim en leefden in koude gebieden. Ze zorgden voor elkaar en maakten kleding.",
+      "fun_fact": "Veel mensen vandaag hebben nog een beetje neanderthaler-DNA."
+    },
+    {
+      "id": 6,
+      "name": "Homo sapiens",
+      "start_mya": 0.3,
+      "end_mya": 0.0,
+      "period": "300.000 jaar geleden – nu",
+      "description": "Homo sapiens is de moderne mens. We kunnen praten, kunst maken en complexe technologie gebruiken.",
+      "fun_fact": "Alle mensen vandaag behoren tot deze soort."
+    }
   ]
 }
