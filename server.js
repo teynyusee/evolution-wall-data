@@ -13,14 +13,28 @@ app.use(cors());
 app.use(express.json());
 
 /* =========================
-   STATIC FILES (uploads)
+   ZEKERHEID: UPLOAD MAP AANMAKEN
+   (CRUCIAAL VOOR RENDER)
 ========================= */
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use(express.static(path.join(__dirname, "public")));
+const uploadsRoot = path.join(__dirname, "uploads");
+const photosDir = path.join(uploadsRoot, "photos");
 
+if (!fs.existsSync(photosDir)) {
+  fs.mkdirSync(photosDir, { recursive: true });
+  console.log("📁 uploads/photos map aangemaakt");
+}
 
 /* =========================
-   DATA LOADER (species)
+   STATIC FILES
+========================= */
+// Frontend (photo app)
+app.use(express.static(path.join(__dirname, "public")));
+
+// Uploads publiek maken
+app.use("/uploads", express.static(uploadsRoot));
+
+/* =========================
+   SPECIES DATA LOADER
 ========================= */
 function loadSpeciesData() {
   const filePath = path.join(__dirname, "data", "species.json");
@@ -30,13 +44,10 @@ function loadSpeciesData() {
 /* =========================
    SPECIES ROUTES
 ========================= */
-
-// Alle species
 app.get("/api/v1/species", (req, res) => {
   res.json(loadSpeciesData());
 });
 
-// Species per ID
 app.get("/api/v1/species/:id", (req, res) => {
   const data = loadSpeciesData();
   const id = Number(req.params.id);
@@ -52,10 +63,9 @@ app.get("/api/v1/species/:id", (req, res) => {
 /* =========================
    PHOTO UPLOAD (MULTER)
 ========================= */
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "uploads/photos"));
+    cb(null, photosDir);
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname) || ".png";
@@ -66,7 +76,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Foto uploaden
 app.post("/api/v1/photos", upload.single("photo"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: "No photo uploaded" });
@@ -75,6 +84,7 @@ app.post("/api/v1/photos", upload.single("photo"), (req, res) => {
   const speciesId = req.body.speciesId || null;
 
   res.json({
+    success: true,
     id: req.file.filename,
     speciesId,
     url: `/uploads/photos/${req.file.filename}`
