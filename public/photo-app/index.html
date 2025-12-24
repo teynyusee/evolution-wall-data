@@ -1,69 +1,36 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Evolution Photo</title>
+  <title>Live Camera</title>
   <style>
     body {
-      background:#111;
-      color:white;
-      font-family:sans-serif;
-      text-align:center;
+      margin: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
     video {
-      width: 420px;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 14px 22px;
-      font-size: 16px;
-      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
 
-<h2>Neem je evolutiefoto</h2>
-
-<video id="video" autoplay playsinline></video><br>
-<button onclick="takePhoto()">📸 Neem foto</button>
-
-<canvas id="canvas" style="display:none;"></canvas>
+<video id="video" autoplay playsinline></video>
 
 <script>
-const video = document.getElementById("video");
-const canvas = document.getElementById("canvas");
-
-// Camera openen
 navigator.mediaDevices.getUserMedia({ video: true })
-  .then(stream => video.srcObject = stream)
-  .catch(() => alert("Camera toegang geweigerd"));
-
-// Foto nemen + uploaden
-function takePhoto() {
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  canvas.getContext("2d").drawImage(video, 0, 0);
-
-  canvas.toBlob(blob => {
-    const formData = new FormData();
-    formData.append("photo", blob, "photo.png");
-
-    fetch("/api/v1/photos", {
-      method: "POST",
-      body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log("Foto opgeslagen:", data);
-      // Signaal naar Unreal
-      window.location.href = "unreal://photo-done";
-    })
-    .catch(() => alert("Upload mislukt"));
-  }, "image/png");
-}
+  .then(stream => {
+    document.getElementById("video").srcObject = stream;
+  })
+  .catch(err => {
+    document.body.innerHTML = "<h1 style='color:white'>Camera niet toegankelijk</h1>";
+  });
 </script>
 
 </body>
