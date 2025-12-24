@@ -24,14 +24,15 @@ if (!fs.existsSync(photosDir)) {
   console.log("📁 uploads/photos map aangemaakt");
 }
 
-/* =========================
-   STATIC FILES
-========================= */
-// Frontend (photo app)
+// STATIC FILES
 app.use(express.static(path.join(__dirname, "public")));
 
 // Uploads publiek maken
-app.use("/uploads", express.static(uploadsRoot));
+app.use(
+  "/uploads/photos",
+  express.static(path.join(__dirname, "uploads/photos"))
+);
+
 
 /* =========================
    SPECIES DATA LOADER
