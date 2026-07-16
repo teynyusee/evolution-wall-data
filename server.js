@@ -28,9 +28,10 @@ const PORT = Number(process.env.PORT) || 3000;
  * Voor productie:
  * bijvoorbeeld https://museum.example.be
  */
-const PUBLIC_BASE_URL = (
-  process.env.PUBLIC_BASE_URL || `http://localhost:${PORT}`
-).replace(/\/+$/, "");
+const PUBLIC_BASE_URL =
+  process.env.PUBLIC_BASE_URL || `http://localhost:${PORT}`;
+
+const pageUrl = `${PUBLIC_BASE_URL}/photo/${photoId}`;
 
 const PHOTO_LIFETIME_HOURS = Number(
   process.env.PHOTO_LIFETIME_HOURS || 24
