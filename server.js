@@ -265,7 +265,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const pageUrl = `${PUBLIC_BASE_URL}/photo/${photoId}`;
 
 const uploadPhoto = multer({
   storage,
@@ -951,6 +950,22 @@ app.get("/health", async (_request, response) => {
     storedPhotos: photoCount,
     currentTime: new Date().toISOString(),
   });
+});
+
+app.get("/qr/:id", async (req, res) => {
+    const photos = await loadPhotosData();
+
+    const photo = photos.photos.find(p => p.id === req.params.id);
+
+    if (!photo)
+        return res.status(404).send("QR niet gevonden");
+
+    res.sendFile(path.join(QR_UPLOAD_DIR, photo.qrFilename));
+});
+
+app.get("/api/v1/photos", async (req, res) => {
+    const data = await loadPhotosData();
+    res.json(data);
 });
 
 /* =========================================================
