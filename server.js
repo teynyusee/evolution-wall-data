@@ -31,8 +31,6 @@ const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_BASE_URL =
   process.env.PUBLIC_BASE_URL || `http://localhost:${PORT}`;
 
-const pageUrl = `${PUBLIC_BASE_URL}/photo/${photoId}`;
-
 const PHOTO_LIFETIME_HOURS = Number(
   process.env.PHOTO_LIFETIME_HOURS || 24
 );
@@ -266,6 +264,8 @@ const storage = multer.diskStorage({
     callback(null, `${photoId}.png`);
   },
 });
+
+const pageUrl = `${PUBLIC_BASE_URL}/photo/${photoId}`;
 
 const uploadPhoto = multer({
   storage,
