@@ -32,7 +32,7 @@ const PUBLIC_BASE_URL =
   process.env.PUBLIC_BASE_URL || `http://localhost:${PORT}`;
 
 const PHOTO_LIFETIME_HOURS = Number(
-  process.env.PHOTO_LIFETIME_HOURS || 24
+  process.env.PHOTO_LIFETIME_HOURS || 1
 );
 
 const MAX_PHOTO_SIZE_BYTES = 15 * 1024 * 1024;
@@ -1092,7 +1092,7 @@ async function startServer() {
         error
       );
     });
-  }, 60 * 60 * 1000);
+}, 60 * 1000);
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log("");
