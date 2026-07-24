@@ -18,16 +18,6 @@ const app = express();
 
 const PORT = Number(process.env.PORT) || 3000;
 
-/*
- * Voor lokaal testen:
- * http://localhost:3000
- *
- * Voor een gsm op hetzelfde netwerk:
- * bijvoorbeeld http://192.168.1.50:3000
- *
- * Voor productie:
- * bijvoorbeeld https://museum.example.be
- */
 const PUBLIC_BASE_URL =
   process.env.PUBLIC_BASE_URL || `http://localhost:${PORT}`;
 
@@ -67,14 +57,6 @@ app.use(
   })
 );
 
-/*
- * Alles in public/ wordt bereikbaar via de browser.
- *
- * Voorbeelden:
- * public/uploads/photos/test.png
- * wordt:
- * http://localhost:3000/uploads/photos/test.png
- */
 app.use(express.static(PUBLIC_DIR));
 
 /* =========================================================
@@ -124,11 +106,6 @@ async function readJsonFile(filePath, fallbackValue) {
   }
 }
 
-/*
- * Eerst naar een tijdelijk bestand schrijven en daarna
- * hernoemen. Zo wordt de kans kleiner dat photos.json
- * halfgeschreven achterblijft.
- */
 async function writeJsonSafely(filePath, value) {
   const temporaryPath = `${filePath}.${process.pid}.tmp`;
   const json = `${JSON.stringify(value, null, 2)}\n`;
@@ -251,16 +228,8 @@ const storage = multer.diskStorage({
   },
 
   filename: (request, file, callback) => {
-    /*
-     * Het ID wordt al aangemaakt voordat Multer het bestand
-     * opslaat. De route kan daarna hetzelfde ID gebruiken.
-     */
     const photoId = request.photoId || crypto.randomUUID();
     request.photoId = photoId;
-
-    /*
-     * De gemaakte Unreal-foto wordt altijd als PNG opgeslagen.
-     */
     callback(null, `${photoId}.png`);
   },
 });
@@ -344,16 +313,6 @@ app.get("/api/v1/species/:id", (request, response) => {
    FOTO UPLOADEN EN QR-CODE GENEREREN
 ========================================================= */
 
-/*
- * Verwacht multipart/form-data:
- *
- * Verplicht:
- * photo = afbeeldingsbestand
- *
- * Optioneel:
- * speciesId = bijvoorbeeld 1
- * pose      = bijvoorbeeld 0 of 1
- */
 app.post(
   "/api/v1/photos",
   (request, _response, next) => {
@@ -437,10 +396,6 @@ app.post(
 
       const photoPageUrl = buildPhotoPageUrl(photoId);
 
-      /*
-       * De QR-code bevat de URL naar de downloadpagina,
-       * niet rechtstreeks het lokale bestandspad.
-       */
       await QRCode.toFile(qrFilePath, photoPageUrl, {
         type: "png",
         width: 700,
@@ -490,10 +445,6 @@ app.post(
         },
       });
     } catch (error) {
-      /*
-       * Wanneer de foto al op schijf staat maar iets anders
-       * mislukt, ruimen we het bestand opnieuw op.
-       */
       if (request.file?.path) {
         await removeFileIfExists(request.file.path).catch(
           console.error
